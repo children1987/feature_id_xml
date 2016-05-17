@@ -56,6 +56,7 @@ public class FeatureID {
 			String id = node.id;
 			StringBuffer baseId = new StringBuffer();
 			if (!findBaseID(id, baseId)) {
+				System.out.println("Error: Failed to find baseId when initAimNodesMap!");
 				return false;
 			}
 			aimNodesMap.put(id, srcNodesMap.get(baseId.toString()));
@@ -89,7 +90,7 @@ public class FeatureID {
 
 		while (true) {
 			if (mem.contains(id)) {
-				System.out.println("Warning: baseId cycle: ");
+				System.out.println("Error: baseId cycle: ");
 				for (String s : mem) {
 					System.out.println(s);
 				}
