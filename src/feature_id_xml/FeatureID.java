@@ -35,6 +35,9 @@ public class FeatureID {
 		return true;
 	}
 	
+	/*
+	 * 
+	 */
 	public String getBaseCn(String id){
 		return aimNodesMap.get(id).cn;
 	}
