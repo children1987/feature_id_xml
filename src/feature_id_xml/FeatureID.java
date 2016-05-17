@@ -27,7 +27,11 @@ public class FeatureID {
 		if (!initSrcNodesMap()){
 			return false;
 		}
-		this.aimNodesMap = getAimNodesMap();
+		
+		if (!initAimNodesMap()){
+			return false;
+		}
+
 		return true;
 	}
 	
@@ -39,8 +43,8 @@ public class FeatureID {
 		return aimNodesMap.get(id).en;
 	}
 	
-	private Map<String, FeatureNode> getAimNodesMap(){
-		Map<String, FeatureNode> aimNodesMap = new HashMap<String, FeatureNode>();
+	private boolean initAimNodesMap(){
+		aimNodesMap = new HashMap<String, FeatureNode>();
 		
 		for (FeatureNode node:srcNodes){
 			String id = node.id;
@@ -48,7 +52,7 @@ public class FeatureID {
 			aimNodesMap.put(id, srcNodesMap.get(baseId));
 		}
 		
-		return aimNodesMap;
+		return true;
 	}
 	
 	private boolean initSrcNodesMap(){
