@@ -9,16 +9,24 @@ import org.junit.Test;
 
 public class TestFeatureID {
 
+	/*
+	 * 简单基本场景
+	 */
 	@Test
 	public void test01() {
 		List<FeatureNode> nodes = new ArrayList<FeatureNode>();
 		nodes.add(new FeatureNode("1", "中", "en", ""));
 		FeatureID fid = new FeatureID(nodes);
+		boolean ok = fid.init();
+		assertTrue(ok);
 		String cn = fid.getBaseCn("1");
-		assertTrue(cn == "中");
-		assertTrue(fid.getBaseEn("1") == "en");
+		assertEquals(cn, "中");
+		assertEquals(fid.getBaseEn("1"), "en");
 	}
 
+	/*
+	 * 简单重定向场景
+	 */
 	@Test
 	public void test02() {
 		List<FeatureNode> nodes = new ArrayList<FeatureNode>();
@@ -27,11 +35,16 @@ public class TestFeatureID {
 		nodes.add(new FeatureNode("2", "中2", "en2", ""));
 		
 		FeatureID fid = new FeatureID(nodes);
+		boolean ok = fid.init();
+		assertTrue(ok);
 		
-		assertTrue(fid.getBaseCn("1") == "中2");
-		assertTrue(fid.getBaseEn("1") == "en2");
+		assertEquals(fid.getBaseCn("1"), "中2");
+		assertEquals(fid.getBaseEn("1"), "en2");
 	}
 	
+	/*
+	 * 循环
+	 */
 	@Test
 	public void test03() {
 		List<FeatureNode> nodes = new ArrayList<FeatureNode>();
@@ -40,6 +53,22 @@ public class TestFeatureID {
 		nodes.add(new FeatureNode("2", "中2", "en2", "1"));
 		
 		FeatureID fid = new FeatureID(nodes);
-
+		boolean ok = fid.init();
+		assertFalse(ok);
+	}
+	
+	/*
+	 * 重复的node id
+	 */
+	@Test
+	public void test04() {
+		List<FeatureNode> nodes = new ArrayList<FeatureNode>();
+		
+		nodes.add(new FeatureNode("1", "中", "en", ""));
+		nodes.add(new FeatureNode("1", "中2", "en2", ""));
+		
+		FeatureID fid = new FeatureID(nodes);
+		boolean ok = fid.init();
+		assertFalse(ok);
 	}
 }
