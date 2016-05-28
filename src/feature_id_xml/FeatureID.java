@@ -39,22 +39,22 @@ public class FeatureID {
 	 * 
 	 */
 	public String getBaseCn(String id) {
-		return aimNodesMap.get(id).cn;
+		return aimNodesMap.get(id).getCn();
 	}
 
 	/*
 	 * 
 	 */
 	public String getBaseEn(String id) {
-		return aimNodesMap.get(id).en;
+		return aimNodesMap.get(id).getEn();
 	}
 
 	private boolean initAimNodesMap() {
 		aimNodesMap = new HashMap<String, FeatureNode>();
 
 		for (FeatureNode node : srcNodes) {
-			String id = node.id;
-			StringBuffer baseId = new StringBuffer();
+			String id = node.getId();
+			StringBuilder baseId = new StringBuilder();
 			if (!findBaseID(id, baseId)) {
 				System.out.println("Error: Failed to find baseId when initAimNodesMap!");
 				return false;
@@ -68,7 +68,7 @@ public class FeatureID {
 	private boolean initSrcNodesMap() {
 		srcNodesMap = new HashMap<String, FeatureNode>();
 		for (FeatureNode node : srcNodes) {
-			String key = node.id;
+			String key = node.getId();
 			if (srcNodesMap.containsKey(key)) {
 				System.out.println("Warning: key duplicated: " + key);
 				return false;
@@ -84,7 +84,7 @@ public class FeatureID {
 	 * rslt: 输出参数
 	 * @return: 是否find成功
 	 */
-	private boolean findBaseID(String id, StringBuffer rslt) {
+	private boolean findBaseID(String id, StringBuilder rslt) {
 		// 防死循环记忆器
 		List<String> mem = new ArrayList<String>();
 
@@ -98,10 +98,10 @@ public class FeatureID {
 			}
 
 			FeatureNode baseNode = srcNodesMap.get(id);
-			String baseId = baseNode.baseId;
+			String baseId = baseNode.getBaseId();
 
 			if ("".equals(baseId)) {
-				rslt.append(baseNode.id);
+				rslt.append(baseNode.getId());
 				return true;
 			} else {
 				mem.add(id);

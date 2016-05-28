@@ -40,8 +40,6 @@ public class TestFeatureID {
 		nodes.add(new FeatureNode("2", "жа2", "en2", "1"));
 		
 		FeatureID fid = new FeatureID(nodes);
-		
-//		assertTrue(fid.getBaseCn("1") == "");
-//		assertTrue(fid.getBaseEn("1") == "");
+
 	}
 }
